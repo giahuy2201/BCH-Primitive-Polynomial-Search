@@ -15,6 +15,14 @@ def calculate_parity(data,ecc_strength,poly_decimal,swap_bits):
     bch = bchlib.BCH(ecc_strength, prim_poly=poly_decimal, swap_bits=swap_bits)
     return bch.encode(data)
 
+def find_m(data_size_in_bits):
+    # find Galois field order m: 2^m > amount of data to protect in bits
+    data_size_in_bits_log2 = math.log2(data_size_in_bits)
+    m = math.ceil(data_size_in_bits_log2)
+    if m == data_size_in_bits_log2:
+        m += 1
+    return m
+
 # Get argv
 if len(sys.argv) != 3:
     print('Usage:')
@@ -34,11 +42,12 @@ dataf.close()
 # find bch parameters
 data_size_bits = len(data) * 8
 ecc_size_bits = len(ecc) * 8
-# find Galois field order m: 2^m > amount of data to protect in bits
-data_size_bits_log2 = math.log2(data_size_bits)
-m = math.ceil(data_size_bits_log2)
-if m == data_size_bits_log2:
-    m += 1
+
+if data_size_bits < ecc_size_bits:
+    print('Data should be larger than ECC')
+    sys.exit(1)
+
+m = find_m(data_size_bits)
 # find ECC strength t: m * t <= parity data size in bits
 t = math.floor(ecc_size_bits / m)
 
