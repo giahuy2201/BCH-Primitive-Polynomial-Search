@@ -25,7 +25,7 @@ dd if=flashdump.bin of=data.bin skip=<start position of data in bytes> count=<le
 
 5. Determining the size of ECC parity data which is located in the spare / Out-Of-Band area usually right after the data is a bit trickier. This requires knowing the bit strength `t` of the BCH algorithm being used which could be obtained from device boot log or device tree, commonly used ones are `t = 4` and `t = 8`. Along with ECC parity data, the spare areas also contain bad block marker and padding (a series of `0xFF`). Here are two commonly used bit strength along with the size of ECC parity data. The calculation is implement under `find_m` function, but generally
 
-$$\text{length\_of\_ecc\_in\_bits} = t \cdot m \text{, where } 2^m > \text{length\_of\_data\_in\_bits}$$
+$`\text{length\_of\_ecc\_in\_bits} = t \cdot m \text{, where } 2^m > \text{length\_of\_data\_in\_bits}`$
 
 In this example, the device uses 4-Bit BCH on 512 bytes of data -> 7 bytes ECC parity data. 
 
