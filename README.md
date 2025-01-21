@@ -33,6 +33,8 @@ In this example, the device uses 4-Bit BCH on 512 bytes of data -> 7 bytes ECC p
 dd if=flashdump.bin of=ecc.bin skip=<start position of ecc in bytes> count=<length of ecc> bs=1
 ```
 
+> WARNING: This script assumes that there is no bitflip happened to the sample of data you extracted from the flash dump. If the search yields no result for your first sample, you should try again with another sample from the flash dump.
+
 ## Usage
 
 Install dependencies
