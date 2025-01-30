@@ -43,6 +43,7 @@ dataf.close()
 data_size_bits = len(data) * 8
 ecc_size_bits = len(ecc) * 8
 
+# check args
 if data_size_bits < ecc_size_bits:
     print('Data should be larger than ECC')
     sys.exit(1)
@@ -51,8 +52,14 @@ m = find_m(data_size_bits)
 # find ECC strength t: m * t <= parity data size in bits
 t = math.floor(ecc_size_bits / m)
 
+# Or set m and t manually
+# m,t = 14,7
+
 # generate all primitive polynomials of degree m over GF(2)
 prim_polys = galois.primitive_polys(2, m)
+
+# print params
+print(f'Params: m: {m}, t: {t}')
 
 # search
 found_poly = 0
