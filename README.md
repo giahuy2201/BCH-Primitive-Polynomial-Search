@@ -43,10 +43,10 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Run `search.py` with binary data files
+Run `search-bch-poly.py` with binary data files
 
 ```bash
-python search.py data.bin ecc.bin
+python search-bch-poly.py data.bin ecc.bin
 ```
 
 ## References
